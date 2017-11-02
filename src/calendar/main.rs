@@ -44,7 +44,12 @@ fn main(){
                     let cell = TextBox::new();
                     let text = format!("{}", x.day());
                     let text_offset = cell_width / 2 - (text.len() as u32 * 4);
-                    cell.size(cell_width, cell_height).text(text).text_offset(text_offset as i32, (cell_width / 2 -8) as i32);
+
+                    cell
+                        .size(cell_width, cell_height)
+                        .text(text)
+                        .text_offset(text_offset as i32, (cell_width / 2 -8) as i32);
+
                     grid.insert(idx % 7, (idx / 7) + 1, &cell);
                 },
                 None => {}
