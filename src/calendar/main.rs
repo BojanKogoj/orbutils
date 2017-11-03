@@ -10,16 +10,27 @@ fn main(){
     let cell_height = 90;
     let cell_day_name_height = 16;
     let window_width = 7 * (cell_width + 8) + 8;
-    let window_height = 5 * (cell_height + 8) + 16 + cell_day_name_height;
+    let window_height = 5 * (cell_height + 8) + 16 + cell_day_name_height + 24;
     let mut window = Window::new(Rect::new(-1, -1, window_width, window_height), "Calendar");
+
+    let date: DateTime<Local> = Local::now();
+
+    {
+        let string_date = date.format("%B %Y").to_string();
+        let label_date = Label::new();
+        let label_position = window_width / 2 - (string_date.len() * 8 /2) as u32;
+        label_date.text(string_date)
+            .size(300, 16)
+            .position(label_position as i32, 8);
+        window.add(&label_date);
+    }
 
     {
 
         let grid = Grid::new();
-        grid.position(8, 8)
+        grid.position(8, 8 + 16 + 8)
             .spacing(8, 8);
 
-        // TODO(Bojan): Replace with chrono::Weekday
         // TODO(Bojan): Add start with Sunday option
         let day_names = &["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
@@ -28,8 +39,6 @@ fn main(){
             label.size(cell_width, cell_day_name_height).text(*day);
             grid.insert(i, 0, &label);
         }
-
-        let date: DateTime<Local> = Local::now();
 
         let mut day = 1;
         for idx in 0..5*7usize {
