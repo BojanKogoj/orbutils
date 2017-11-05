@@ -1,7 +1,7 @@
 extern crate orbtk;
 extern crate chrono;
 
-use orbtk::{Rect, Window, Grid, Label, TextBox};
+use orbtk::{Rect, Window, Grid, Label, TextBox, Button};
 use orbtk::traits::{Place, Text};
 use chrono::prelude::*;
 
@@ -23,6 +23,24 @@ fn main(){
             .size(300, 16)
             .position(label_position as i32, 8);
         window.add(&label_date);
+
+        let offset = window_width / 2 - 100;
+        let prev_month = Button::new();
+        prev_month.text("<")
+            .position(offset as i32, 6)
+            .text_offset(5, 3)
+            .size(20, 20);
+
+        window.add(&prev_month);
+
+        let next_month = Button::new();
+        let offset = window_width / 2 + 80;
+        next_month.text(">")
+            .position(offset as i32, 6)
+            .text_offset(5, 3)
+            .size(20, 20);
+
+        window.add(&next_month);
     }
 
     {
