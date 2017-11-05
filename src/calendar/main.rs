@@ -1,9 +1,11 @@
 extern crate orbtk;
 extern crate chrono;
+extern crate orbclient;
 
-use orbtk::{Rect, Window, Grid, Label, TextBox, Button};
-use orbtk::traits::{Place, Text};
+use orbtk::{Rect, Window, Grid, Label, Button};
+use orbtk::traits::{Place, Text, Border};
 use chrono::prelude::*;
+use orbclient::{Color};
 
 fn main(){
     let cell_width = 90;
@@ -68,14 +70,16 @@ fn main(){
             let d = date.with_day(day);
             match d {
                 Some(x) => {
-                    let cell = TextBox::new();
+
+                    let cell = Label::new();
                     let text = format!("{}", x.day());
                     let text_offset = cell_width / 2 - (text.len() as u32 * 4);
 
-                    cell
-                        .size(cell_width, cell_height)
+                    cell.size(cell_width, cell_height)
+                        .border(true)
                         .text(text)
                         .text_offset(text_offset as i32, (cell_width / 2 -8) as i32);
+                    cell.bg.set(Color::rgb(255, 255, 255));
 
                     grid.insert(idx % 7, (idx / 7) + 1, &cell);
                 },
