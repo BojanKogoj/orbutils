@@ -94,7 +94,9 @@ fn draw_grid(grid: &Grid, date: DateTime<Local>, cell_width: u32, cell_height: u
 
     for (i, day) in day_names.iter().enumerate() {
         let label = Label::new();
-        label.size(cell_width, cell_day_name_height).text(*day);
+        label.size(cell_width, cell_day_name_height)
+            .text(*day)
+            .text_offset((cell_width - day.len() as u32*8) as i32 /2, 0);
         grid.insert(i, 0, &label);
     }
 
